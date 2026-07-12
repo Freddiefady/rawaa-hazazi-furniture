@@ -27,14 +27,10 @@ Homestead.yaml
 Thumbs.db
 
 app/Ai/*
-app/Models/*
-!app/Models/User.php
 app/Http/Controllers/*
 app/Http/Middleware/*
 app/Http/Requests/*
 app/Policies/
 !app/Http/Controllers/Controller.php
-database/migrations/*
-!database/migrations/0001_01_01_000000_create_users_table.php
 resources/views/*
 tests/Feature/*
