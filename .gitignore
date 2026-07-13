@@ -28,9 +28,11 @@ Thumbs.db
 
 app/Ai/*
 app/Http/Controllers/*
+!app/Http/Controllers/HomeController.php
 app/Http/Middleware/*
 app/Http/Requests/*
 app/Policies/
-!app/Http/Controllers/Controller.php
 resources/views/*
+!resources/views/visualizer.blade.php
+!resources/views/home.blade.php
 tests/Feature/*

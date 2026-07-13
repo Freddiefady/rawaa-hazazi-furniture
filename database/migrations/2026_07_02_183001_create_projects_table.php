@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('category')->nullable();
             $table->text('materials')->nullable();
             $table->string('area')->nullable();
-            $table->text('cover_image')->nullable();           
+            $table->text('cover_image')->nullable();
             $table->foreignId('category_id')->constrained('categories')->nullOnDelete();
             $table->timestamps();
         });

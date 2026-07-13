@@ -16,7 +16,6 @@ use Illuminate\Notifications\Notifiable;
  * @property-read string $email
  * @property-read string $password
  * @property-read string $is_admin
- * 
  */
 #[Fillable(['name', 'email', 'password', 'is_admin'])]
 #[Hidden(['password', 'remember_token'])]
