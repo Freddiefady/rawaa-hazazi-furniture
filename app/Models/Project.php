@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use Database\Factories\ProjectFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,13 +21,14 @@ use Illuminate\Support\Facades\Storage;
  * @property-read string $materials
  * @property-read string $area
  * @property-read string $cover_image
- * @property-read  Category $this
- * @property-read  Collection<int, ProjectImage> $images
- * @property-read  Collection<int, Category> $categories
+ * @property-read Category $category
+ * @property-read Collection<int, ProjectImage> $images
+ * @property-read Collection<int, Category> $categories
  */
 #[Fillable(['title', 'description', 'category_id', 'materials', 'area', 'cover_image'])]
-class Project extends Model
+final class Project extends Model
 {
+    /** @use HasFactory<ProjectFactory> */
     use HasFactory;
 
     /**
@@ -60,12 +64,14 @@ class Project extends Model
     /**
      * Resolve cover_image to a full URL regardless of whether it is
      * a local storage path (uploaded via admin) or an external URL (seeded data).
+     *
+     * @return Attribute<string|null, never>
      */
     protected function coverImage(): Attribute
     {
         return Attribute::make(
-            get: function (?string $value) {
-                if (! $value) {
+            get: function (mixed $value) {
+                if (! is_string($value)) {
                     return null;
                 }
 

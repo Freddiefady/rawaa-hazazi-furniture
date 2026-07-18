@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\Service;
 use Illuminate\Contracts\View\View;
 
-class HomeController extends Controller
+final class HomeController extends Controller
 {
     /**
      * Display the landing page.
@@ -19,7 +21,7 @@ class HomeController extends Controller
             ->get();
         $services = Service::query()->get();
 
-        return view('home', compact('latestProjects', 'services'));
+        return view('home', ['latestProjects' => $latestProjects, 'services' => $services]);
     }
 
     /**

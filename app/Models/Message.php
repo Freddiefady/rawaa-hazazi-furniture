@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use Database\Factories\MessageFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read string $message
  */
 #[Fillable(['name', 'email', 'phone', 'service_type', 'message'])]
-class Message extends Model
+final class Message extends Model
 {
+    /** @use HasFactory<MessageFactory> */
     use HasFactory;
 }

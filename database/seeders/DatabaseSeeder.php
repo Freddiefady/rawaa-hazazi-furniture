@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Category;
@@ -11,7 +13,7 @@ use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+final class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
@@ -19,14 +21,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // 1. Seed Default Admin User
-        User::updateOrCreate(
-            ['email' => 'admin@rawathazzazi.com'],
-            [
-                'name' => 'إدارة روعة هزازي',
-                'password' => bcrypt('password123'),
-                'is_admin' => true,
-            ]
-        );
+        User::query()->updateOrCreate(['email' => 'admin@rawathazzazi.com'], [
+            'name' => 'إدارة روعة هزازي',
+            'password' => bcrypt('password123'),
+            'is_admin' => true,
+        ]);
 
         // 2. Seed Settings
         $settings = [
@@ -42,7 +41,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($settings as $key => $value) {
-            Setting::updateOrCreate(['key' => $key], ['value' => $value]);
+            Setting::query()->updateOrCreate(['key' => $key], ['value' => $value]);
         }
 
         // 3. Seed Services
@@ -65,14 +64,14 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($services as $srv) {
-            Service::updateOrCreate(['title' => $srv['title']], $srv);
+            Service::query()->updateOrCreate(['title' => $srv['title']], $srv);
         }
 
         // 4. Seed Categories (standalone lookup table)
         $categoryNames = ['غرف نوم', 'مجالس', 'مطابخ', 'ديكورات حوائط', 'أثاث مكتبي'];
 
         foreach ($categoryNames as $name) {
-            Category::updateOrCreate(['name' => $name], ['status' => true]);
+            Category::query()->updateOrCreate(['name' => $name], ['status' => true]);
         }
 
         // 5. Seed Projects & ProjectImages (resolved via category name → category_id)
@@ -143,14 +142,14 @@ class DatabaseSeeder extends Seeder
             unset($projData['images'], $projData['category_name']);
 
             /** @var Category $category */
-            $category = Category::where('name', $categoryName)->first();
+            $category = Category::query()->where('name', $categoryName)->first();
             $projData['category_id'] = $category?->id;
 
-            $project = Project::updateOrCreate(['title' => $projData['title']], $projData);
+            $project = Project::query()->updateOrCreate(['title' => $projData['title']], $projData);
 
             $project->images()->delete();
             foreach ($images as $imgUrl) {
-                ProjectImage::create([
+                ProjectImage::query()->create([
                     'project_id' => $project->id,
                     'image_url' => $imgUrl,
                 ]);
@@ -177,7 +176,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($posts as $postData) {
-            Post::updateOrCreate(['title' => $postData['title']], $postData);
+            Post::query()->updateOrCreate(['title' => $postData['title']], $postData);
         }
     }
 }

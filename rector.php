@@ -23,10 +23,7 @@ return RectorConfig::configure()
         LaravelSetList::LARAVEL_LEGACY_FACTORIES_TO_CLASSES,
     ])
     ->withComposerBased(laravel: true)
-    ->withCache(
-        cacheDirectory: '/tmp/rector',
-        cacheClass: FileCacheStorage::class,
-    )
+    ->withCache(cacheDirectory: '/tmp/rector', cacheClass: FileCacheStorage::class)
     ->withPaths([
         __DIR__.'/app',
         __DIR__.'/bootstrap/app.php',
@@ -35,15 +32,13 @@ return RectorConfig::configure()
         __DIR__.'/public',
         __DIR__.'/routes',
     ])
-    // ->withSkip([
-    //     AddOverrideAttributeToOverriddenMethodsRector::class,
-    // ])
+    ->withSkip([AddOverrideAttributeToOverriddenMethodsRector::class])
     ->withPreparedSets(
         deadCode: true,
         codeQuality: true,
+        codingStyle: true,
         typeDeclarations: true,
         privatization: true,
         earlyReturn: true,
-        strictBooleans: true,
-    );
-//        ->withPhpSets();
+    )
+    ->withPhpSets();

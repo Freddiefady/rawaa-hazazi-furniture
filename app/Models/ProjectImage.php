@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use Database\Factories\ProjectImageFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,8 +17,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read Project $project
  */
 #[Fillable(['project_id', 'image_url'])]
-class ProjectImage extends Model
+final class ProjectImage extends Model
 {
+    /** @use HasFactory<ProjectImageFactory> */
     use HasFactory;
 
     /**

@@ -1,14 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use Database\Factories\SettingFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\WithoutIncrementing;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 #[Fillable(['key', 'value'])]
-class Setting extends Model
+#[WithoutIncrementing]
+final class Setting extends Model
 {
+    /** @use HasFactory<SettingFactory> */
     use HasFactory;
 
     /**
@@ -17,13 +23,6 @@ class Setting extends Model
      * @var string
      */
     protected $primaryKey = 'key';
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
 
     /**
      * The "type" of the primary key.
