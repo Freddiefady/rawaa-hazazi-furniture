@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 final class getPortfolio
 {
     /**
-     * @param Request $request
      * @return array<string, mixed>
      */
     public function handle(Request $request): array

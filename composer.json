@@ -66,10 +66,10 @@
         "refactor": "rector",
         "test:lint": "pint --test --parallel",
         "test:refactor": "rector --dry-run",
-        "test:types": "phpstan analyse",
+        "test:types": "phpstan analyse --memory-limit=1G",
+        "test:type-coverage": "pest --no-coverage --min=100",
         "test:arch": "pest --filter=arch",
-        "test:type-coverage": "pest --type-coverage --min=100",
-        "test:unit": "pest --parallel --coverage --exactly=99.5",
+        "test:unit": "pest --parallel --exactly=99.5",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
