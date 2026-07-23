@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 final class getPortfolio
 {
+    /**
+     * @param Request $request
+     * @return array<string, mixed>
+     */
     public function handle(Request $request): array
     {
         $activeCategories = $request->query('category');
@@ -19,7 +23,7 @@ final class getPortfolio
         }
 
         // Only show active categories in the public filter bar
-        $categories = Category::query()->orderBy('name')->get();
+        $categories = Category::query()->orderBy('name', direction: 'desc')->get();
 
         $query = Project::query()->with('category');
 
